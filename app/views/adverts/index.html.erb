@@ -1,0 +1,5 @@
+<% @adverts.each do |advert| %>
+  <%= image_tag advert.picture.url if advert.picture? %>
+  <h3><%= advert.title %></h3>
+  <p><%= advert.content %></p>
+<% end %>

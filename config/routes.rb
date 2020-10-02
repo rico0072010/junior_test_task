@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
+  root 'adverts#index'
+  resources :adverts
   devise_for :users
-  root 'application#home'
   resources :users, only: [:show]
 end

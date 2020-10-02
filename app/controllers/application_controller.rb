@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
   before_action :set_locale
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :authenticate_user!, except: :home
+  before_action :authenticate_user!
 
   def set_locale
     if user_signed_in?
@@ -15,10 +15,6 @@ class ApplicationController < ActionController::Base
 
   def locale_from_header
     request.env.fetch('HTTP_ACCEPT_LANGUAGE', '').scan(/[a-z]{2}/).first
-  end
-
-  def home
-    render html: 'Hello World!'
   end
 
   protected
