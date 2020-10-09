@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_02_103500) do
+ActiveRecord::Schema.define(version: 2020_10_06_114304) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -37,12 +37,10 @@ ActiveRecord::Schema.define(version: 2020_10_02_103500) do
   end
 
   create_table "taggings", force: :cascade do |t|
-    t.bigint "advert_id"
-    t.bigint "tag_id"
+    t.integer "advert_id"
+    t.integer "tag_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["advert_id"], name: "index_taggings_on_advert_id"
-    t.index ["tag_id"], name: "index_taggings_on_tag_id"
   end
 
   create_table "tags", force: :cascade do |t|
@@ -61,12 +59,11 @@ ActiveRecord::Schema.define(version: 2020_10_02_103500) do
     t.datetime "updated_at", null: false
     t.string "username"
     t.string "language"
+    t.string "avatar"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "adverts", "users"
   add_foreign_key "comments", "adverts"
-  add_foreign_key "taggings", "adverts"
-  add_foreign_key "taggings", "tags"
 end

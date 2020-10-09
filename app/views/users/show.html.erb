@@ -1,2 +1,17 @@
-<%= @user.email %>
-<%= @user.username %>
+<div class="card shadow" style="width: 15rem;">
+  <%= image_tag @user.avatar.thumb.default_url, class: 'profile-image' %>
+  <div class="card-body">
+    <h5 class="card-title mb-1"><%= @user.username %></h5>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item"><%= @user.email %></li>
+    <li class="list-group-item">Joined <%= time_ago_in_words(@user.created_at) %></li>
+  </ul>
+  <% if current_user == @user %>
+    <div class="card-body">
+      <%= link_to 'Edit', edit_user_registration_path, class: 'card-link btn btn-outline-warning' %>
+      <%= link_to 'Delete', user_registration_path, class: 'card-link btn btn-outline-danger',
+          method: :delete, data: { confirm: "You sure?" } %>
+    </div>
+  <% end %>
+</div>

@@ -1,5 +1,27 @@
-<%= @advert.title %>
-<%= @advert.content %>
-<%= image_tag @advert.picture.url if @advert.picture? %>
-<%= @advert.address %>
-<%= @advert.status %>
+<div class="mt-4 row justify-content-md-center">
+  <div class="col-10">
+    <div class="card shadow rounded flex-column flex-nowrap">
+      <div class="card-header border-0">
+        <% if @advert.picture? %>
+          <%= image_tag @advert.picture.big.url  %>
+        <% else %>
+          <img src="//placehold.it/200" alt="">
+        <% end %>
+      </div>
+      <div class="card-body px-2">
+        <h4 class="card-title text-success"><%= @advert.title %></h4>
+        <p class="card-text"><%= @advert.content %></p>
+        <div class="advert-links">
+          <% if @advert.user == current_user %>
+            <%= link_to 'EDIT', edit_advert_path(@advert), class: 'btn btn-outline-warning' %>
+            <%= link_to 'CLOSE', '#', class: 'btn btn-outline-danger' %>
+          <% end %>
+        </div>
+      </div>
+      <div class="w-100"></div>
+      <div class="card-footer w-100 text-muted">
+        <small class="text-muted font-italic">Created <%= time_ago_in_words(@advert.created_at) %> ago, by <%= @advert.user.username %></small>
+      </div>
+    </div>
+  </div>
+</div>

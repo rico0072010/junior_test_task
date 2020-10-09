@@ -1,75 +1,68 @@
-<%= form_for @advert, :html => { :class => "form-horizontal advert" } do |f| %>
-  <% if @advert.errors.any? %>
-    <div id="error_expl" class="panel panel-danger">
-      <div class="panel-heading">
-        <h3 class="panel-title"><%= pluralize(@advert.errors.count, "error") %> prohibited this advert from being saved:</h3>
+<div class="container">
+  <%= form_for @advert do |f| %>
+    <%= render 'shared/errors', object: @advert %>
+    <div class="shadow p-3 mb-3 bg-info rounded">
+      <div class="form-group row">
+        <%= f.label :title, class: 'control-label text-white col-2' %>
+        <div class="col-10">
+          <%= f.text_field :title, class: 'form-control shadow rounded', placeholder: 'Title of advert' %>
+        </div>
       </div>
-      <div class="panel-body">
-        <ul>
-          <% @advert.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-        </ul>
+      <div class="form-group row">
+        <%= f.label :content, class: 'control-label text-white col-2' %>
+        <div class="col-10">
+          <%= f.text_area :content, rows: 10, class: 'form-control shadow rounded', placeholder: 'Content of advert' %>
+        </div>
       </div>
-    </div>
-  <% end %>
-  <div class="form-group">
-    <%= f.label :title, :class => 'control-label col-lg-2' %>
-    <div class="col-md-8">
-      <%= f.text_field :title, :class => 'form-control' %>
-    </div>
-    <%=f.error_span(:title) %>
-  </div>
-  <div class="form-group">
-    <%= f.label :content, :class => 'control-label col-lg-2' %>
-    <div class="col-md-8">
-      <%= f.text_area :content, :class => 'form-control' %>
-    </div>
-    <%=f.error_span(:content) %>
-  </div>
-  <div class="row">
-    <div class="col-lg-5">
-      <div class="input-group">
-        <span class="input-group-addon">
-          <input type="checkbox" aria-label="...">
-        </span>
-        <input type="text" class="form-control" aria-label="...">
+      <div class="form-group row">
+        <%= f.label :tags, class: 'control-label text-white col-2' %>
+        <div class="col-10">
+          <%= f.collection_select(:tag_ids, Tag.all, :id, :name,
+              { prompt: 'Select from the list below' }, { multiple: true, size: 3, class: 'form-control shadow rounded' }) %>
+        </div>
       </div>
-      <!-- /input-group -->
-    </div>
-    <!-- /.col-lg-6 -->
-    <div class="col-lg-5">
-      <div class="input-group">
-        <span class="input-group-addon">
-          <input type="radio" aria-label="...">
-        </span>
-        <input type="text" class="form-control" aria-label="...">
+      <%= f.fields_for :address do |a| %>
+        <div class="form-group row">
+          <%= a.label :street, class: 'col-2 text-white' %>
+          <div class="col-10">
+            <%= a.text_field :street, id: :street, class: 'form-control shadow rounded', placeholder: "Apartment, studio, or floor" %>
+          </div>
+        </div>
+        <div class="row">
+          <%= a.label :state, class: 'col-2 text-white' %>
+          <div class="form-group col-4">
+            <%= a.text_field :state, id: :state, class: 'form-control shadow rounded' %>
+          </div>
+          <%= a.label :city, class: 'col-2 text-white' %>
+          <div class="form-group col-4">
+            <select id="inputState" class="form-control shadow rounded">
+              <option selected>Choose...</option>
+              <option>...</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group text-center">
+          <%= f.label :picture, class: 'control-label text-white col-1' %>
+          <div class="row justify-content-center">
+            <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png', onchange: "readURL(this);", class: "input-group col-3 border-0 text-white" %>
+          </div>
+        </div>
+        <!-- Uploaded image area-->
+        <p class="font-italic text-white text-center">The image uploaded will be rendered inside the box below.</p>
+        <div class="image-area mx-auto col-6 mt-4 mb-4"><img id="imageResult" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
+      <% end %>
+      <div class="form-group row justify-content-center">
+        <%= f.submit class: 'btn btn-outline-light btn-lg' %>
       </div>
-      <!-- /input-group -->
-    </div>
-    <!-- /.col-lg-6 -->
+    <% end %>
   </div>
-  <!-- /.row -->
-  <div class="form-group">
-    <%= f.label :picture, :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
-      <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
-    </div>
-    <%=f.error_span(:picture) %>
-  </div>
-  <div class="form-group">
-    <div class="col-lg-offset-2 col-lg-10">
-      <%= f.submit nil, :class => 'btn btn-primary' %>
-      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                adverts_path, :class => 'btn btn-default' %>
-    </div>
-  </div>
-<% end %>
+  <%= link_to '[ Cancel and go back to listing page ]', root_path, class: 'row justify-content-center text-info' %>
+</div>
 <script type="text/javascript">
   $('#advert_picture').bind('change', function() {
     var size_in_megabytes = this.files[0].size/1024/1024;
-    if (size_in_megabytes > 5) {
-      alert('Maximum file size is 5MB. Please choose a smaller file.');
+    if (size_in_megabytes > 10) {
+      alert('Maximum file size is 10MB. Please choose a smaller file.');
     }
   });
 </script>

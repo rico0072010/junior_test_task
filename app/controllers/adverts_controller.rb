@@ -2,19 +2,14 @@ class AdvertsController < ApplicationController
   before_action :set_advert, only: %i[show edit update destroy]
   skip_before_action :authenticate_user!, only: %i[index show]
 
-  # GET /adverts
-  # GET /adverts.json
   def index
     @adverts = Advert.all
   end
 
-  # GET /adverts/1
-  # GET /adverts/1.json
   def show; end
 
-  # GET /adverts/new
   def new
-    @advert = Advert.new
+    @advert = current_user.adverts.new
   end
 
   # GET /adverts/1/edit
@@ -69,6 +64,6 @@ class AdvertsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def advert_params
-    params.require(:advert).permit(:title, :content, :picture, :status, address: %i[state city street])
+    params.require(:advert).permit(:title, :content, :picture, :status, address: %i[state city street], tag_ids: [])
   end
 end

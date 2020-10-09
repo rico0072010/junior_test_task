@@ -5,7 +5,7 @@ ruby '2.7.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.4', '>= 5.2.4.4'
-gem 'bootstrap-sass', '~> 3.4.1'
+gem 'bootstrap', '~> 4.5.2'
 gem 'pg'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
@@ -27,18 +27,13 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 gem 'devise'
-gem 'devise-i18n'
 gem 'devise-bootstrap-views', '~> 1.0'
 gem 'carrierwave'
-gem 'twitter-bootstrap-rails'
 gem 'font-awesome-rails'
 gem 'jquery-rails'
 gem 'mini_magick'
-gem 'friendly_id', '~> 5.4.0'
 gem 'will_paginate', '3.3.0'
 gem 'bootstrap-will_paginate', '1.0.0'
-gem 'hirb', '0.7.3'
-gem 'faker', '2.14.0'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

@@ -1,5 +1,32 @@
+<% if !user_signed_in? %>
+  <%= render 'layouts/jumb' %>
+<% end %>
 <% @adverts.each do |advert| %>
-  <%= image_tag advert.picture.url if advert.picture? %>
-  <h3><%= advert.title %></h3>
-  <p><%= advert.content %></p>
+  <div class="mt-4 row justify-content-md-center">
+    <div class="col-10">
+      <div class="card shadow flex-row">
+        <div class="card-header card-header-index border-0">
+          <% if advert.picture? %>
+            <%= image_tag advert.picture.thumb.url  %>
+          <% else %>
+            <img src="//placehold.it/200" alt="">
+          <% end %>
+        </div>
+        <div class="card-body px-2">
+          <h4 class="card-title"><%= link_to advert.title, advert_path(advert), class: 'text-success' %></h4>
+          <p class="card-text"><%= truncate(advert.content, length: 160, separator: /\s/) %></p>
+          <div class="advert-links">
+            <%= link_to 'VIEW', advert_path(advert), class: "btn btn-outline-success" %>
+            <% if advert.user == current_user %>
+              <%= link_to 'EDIT', edit_advert_path(advert), class: 'btn btn-outline-warning' %>
+              <%= link_to 'CLOSE', '#', class: 'btn btn-outline-danger' %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer w-100 text-muted">
+        <small class="text-white font-italic">Created <%= time_ago_in_words(advert.created_at) %> ago, by <%= advert.user.username %></small>
+      </div>
+    </div>
+  </div>
 <% end %>
