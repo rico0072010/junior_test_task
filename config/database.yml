@@ -16,3 +16,10 @@ test:
 
 production:
   adapter: postgresql
+  encoding: unicode
+  # For details on connection pooling, see Rails configuration guide
+  # https://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  database: junior_test_task_production
+  username: junior_test_task
+  password: <%= ENV['JUNIOR_TEST_TASK_DATABASE_PASSWORD'] %>
