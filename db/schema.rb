@@ -20,7 +20,9 @@ ActiveRecord::Schema.define(version: 2020_10_06_114304) do
     t.string "title"
     t.text "content"
     t.string "picture"
-    t.hstore "address"
+    t.string "address"
+    t.string "locality"
+    t.string "administrative_area_level_1"
     t.boolean "status", default: true
     t.bigint "user_id"
     t.datetime "created_at", null: false

@@ -21,36 +21,31 @@
               { prompt: 'Select from the list below' }, { multiple: true, size: 3, class: 'form-control shadow rounded' }) %>
         </div>
       </div>
-      <%= f.fields_for :address do |a| %>
-        <div class="form-group row">
-          <%= a.label :street, class: 'col-2 text-white' %>
-          <div class="col-10">
-            <%= a.text_field :street, id: :street, class: 'form-control shadow rounded', placeholder: "Apartment, studio, or floor" %>
-          </div>
+      <div class="form-group row">
+        <%= f.label :address, class: 'col-2 text-white' %>
+        <div class="col-10">
+          <%= f.text_field :address, class: 'form-control shadow rounded', placeholder: "Enter your adress", id: :autocomplete_address %>
         </div>
-        <div class="row">
-          <%= a.label :state, class: 'col-2 text-white' %>
-          <div class="form-group col-4">
-            <%= a.text_field :state, id: :state, class: 'form-control shadow rounded' %>
-          </div>
-          <%= a.label :city, class: 'col-2 text-white' %>
-          <div class="form-group col-4">
-            <select id="inputState" class="form-control shadow rounded">
-              <option selected>Choose...</option>
-              <option>...</option>
-            </select>
-          </div>
+      </div>
+      <div class="row">
+        <%= f.label :region, class: 'col-2 text-white' %>
+        <div class="form-group col-4">
+          <%= f.text_field :administrative_area_level_1, id: :administrative_area_level_1, class: 'form-control shadow rounded' %>
         </div>
-        <div class="form-group text-center">
-          <%= f.label :picture, class: 'control-label text-white col-1' %>
-          <div class="row justify-content-center">
-            <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png', onchange: "readURL(this);", class: "input-group col-3 border-0 text-white" %>
-          </div>
+        <%= f.label :city, class: 'col-2 text-white' %>
+        <div class="form-group col-4">
+          <%= f.text_field :locality, id: :locality, class: 'form-control shadow rounded' %>
         </div>
-        <!-- Uploaded image area-->
-        <p class="font-italic text-white text-center">The image uploaded will be rendered inside the box below.</p>
-        <div class="image-area mx-auto col-6 mt-4 mb-4"><img id="imageResult" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
-      <% end %>
+      </div>
+      <div class="form-group text-center">
+        <%= f.label :picture, class: 'control-label text-white col-1' %>
+        <div class="row justify-content-center">
+          <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png', onchange: "readURL(this);", class: "input-group col-3 border-0 text-white" %>
+        </div>
+      </div>
+      <!-- Uploaded image area-->
+      <p class="font-italic text-white text-center">The image uploaded will be rendered inside the box below.</p>
+      <div class="image-area mx-auto col-6 mt-4 mb-4"><img id="imageResult" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
       <div class="form-group row justify-content-center">
         <%= f.submit class: 'btn btn-outline-light btn-lg' %>
       </div>

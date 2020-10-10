@@ -30,6 +30,8 @@ gem 'devise'
 gem 'devise-bootstrap-views', '~> 1.0'
 gem 'carrierwave'
 gem 'font-awesome-rails'
+gem "geocoder"
+gem "figaro"
 gem 'jquery-rails'
 gem 'mini_magick'
 gem 'will_paginate', '3.3.0'
