@@ -1,55 +1,59 @@
 <div class="container">
-  <%= form_for @advert do |f| %>
-    <%= render 'shared/errors', object: @advert %>
-    <div class="shadow p-3 mb-3 bg-info rounded">
-      <div class="form-group row">
-        <%= f.label :title, class: 'control-label text-white col-2' %>
-        <div class="col-10">
-          <%= f.text_field :title, class: 'form-control shadow rounded', placeholder: 'Title of advert' %>
-        </div>
+  <div class="row justify-content-center">
+    <div class="col-10">
+      <%= form_for @advert do |f| %>
+        <%= render 'shared/errors', object: @advert %>
+        <div class="shadow p-3 mb-3 bg-info rounded">
+          <div class="form-group row">
+            <%= f.label :title, class: 'control-label text-white text-right col-2' %>
+            <div class="col-10">
+              <%= f.text_field :title, class: 'form-control shadow rounded', placeholder: 'Title of advert' %>
+            </div>
+          </div>
+          <div class="form-group row">
+            <%= f.label :content, class: 'control-label text-white text-right col-2' %>
+            <div class="col-10">
+              <%= f.text_area :content, rows: 10, class: 'form-control shadow rounded', placeholder: 'Content of advert' %>
+            </div>
+          </div>
+          <div class="form-group row">
+            <%= f.label :tags, class: 'control-label text-white text-right col-2' %>
+            <div class="col-10">
+              <%= f.collection_select(:tag_ids, Tag.all, :id, :name,
+            { prompt: 'Select from the list below' }, { multiple: true, size: 3, class: 'form-control shadow rounded' }) %>
+            </div>
+          </div>
+          <div class="form-group row">
+            <%= f.label :address, class: 'col-2 text-white text-right' %>
+            <div class="col-10">
+              <%= f.text_field :address, class: 'form-control shadow rounded', placeholder: "Enter your adress", id: :autocomplete_address %>
+            </div>
+          </div>
+          <div class="row">
+            <%= f.label :region, class: 'col-2 text-white text-right' %>
+            <div class="form-group col-4">
+              <%= f.text_field :administrative_area_level_1, id: :administrative_area_level_1, class: 'form-control shadow rounded' %>
+            </div>
+            <%= f.label :city, class: 'col-1 text-white text-right' %>
+            <div class="form-group col-5">
+              <%= f.text_field :locality, id: :locality, class: 'form-control shadow rounded' %>
+            </div>
+          </div>
+          <div class="form-group text-center">
+            <%= f.label :picture, class: 'control-label text-white col-1' %>
+            <div class="row justify-content-center">
+              <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png', onchange: "readURL(this);", class: "input-group col-4 px-5 border-0 text-white" %>
+            </div>
+          </div>
+          <!-- Uploaded image area-->
+          <p class="font-italic text-white text-center">The image uploaded will be rendered inside the box below.</p>
+          <div class="image-area mx-auto col-6 mt-4 mb-4"><img id="imageResult" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
+          <div class="form-group row justify-content-center">
+            <%= f.submit class: 'btn btn-outline-light btn-lg' %>
+          </div>
+        <% end %>
       </div>
-      <div class="form-group row">
-        <%= f.label :content, class: 'control-label text-white col-2' %>
-        <div class="col-10">
-          <%= f.text_area :content, rows: 10, class: 'form-control shadow rounded', placeholder: 'Content of advert' %>
-        </div>
-      </div>
-      <div class="form-group row">
-        <%= f.label :tags, class: 'control-label text-white col-2' %>
-        <div class="col-10">
-          <%= f.collection_select(:tag_ids, Tag.all, :id, :name,
-              { prompt: 'Select from the list below' }, { multiple: true, size: 3, class: 'form-control shadow rounded' }) %>
-        </div>
-      </div>
-      <div class="form-group row">
-        <%= f.label :address, class: 'col-2 text-white' %>
-        <div class="col-10">
-          <%= f.text_field :address, class: 'form-control shadow rounded', placeholder: "Enter your adress", id: :autocomplete_address %>
-        </div>
-      </div>
-      <div class="row">
-        <%= f.label :region, class: 'col-2 text-white' %>
-        <div class="form-group col-4">
-          <%= f.text_field :administrative_area_level_1, id: :administrative_area_level_1, class: 'form-control shadow rounded' %>
-        </div>
-        <%= f.label :city, class: 'col-2 text-white' %>
-        <div class="form-group col-4">
-          <%= f.text_field :locality, id: :locality, class: 'form-control shadow rounded' %>
-        </div>
-      </div>
-      <div class="form-group text-center">
-        <%= f.label :picture, class: 'control-label text-white col-1' %>
-        <div class="row justify-content-center">
-          <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png', onchange: "readURL(this);", class: "input-group col-3 border-0 text-white" %>
-        </div>
-      </div>
-      <!-- Uploaded image area-->
-      <p class="font-italic text-white text-center">The image uploaded will be rendered inside the box below.</p>
-      <div class="image-area mx-auto col-6 mt-4 mb-4"><img id="imageResult" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
-      <div class="form-group row justify-content-center">
-        <%= f.submit class: 'btn btn-outline-light btn-lg' %>
-      </div>
-    <% end %>
+    </div>
   </div>
   <%= link_to '[ Cancel and go back to listing page ]', root_path, class: 'row justify-content-center text-info' %>
 </div>
@@ -60,4 +64,10 @@
       alert('Maximum file size is 10MB. Please choose a smaller file.');
     }
   });
+  $('option').mousedown(function(e) {
+    e.preventDefault();
+    $(this).prop('selected', !$(this).prop('selected'));
+    return false;
+  });
+  $("select option:first").attr("disabled", "true");
 </script>

@@ -5,10 +5,13 @@ class Advert < ApplicationRecord
   mount_uploader :picture, PictureUploader
   default_scope -> { order(created_at: :desc) }
   validates :title, presence: true, uniqueness: true, length: { minimum: 3, maximum: 25 }
-  validates :content, presence: true, length: { minimum: 10, maximum: 1000 }
+  validates :content, presence: true, length: { minimum: 10, maximum: 3000 }
   belongs_to :user, foreign_key: 'user_id'
   validates :user_id, presence: true
   validate :picture_size
+  validates :address, presence: true, length: { minimum: 10, maximum: 150 }
+  validates :locality, length: { maximum: 25 }, allow_nil: true
+  validates :administrative_area_level_1, length: { maximum: 35 }, allow_nil: true
 
   private
 

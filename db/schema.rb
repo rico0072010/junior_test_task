@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_06_114304) do
+ActiveRecord::Schema.define(version: 2020_10_10_155635) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -43,6 +43,9 @@ ActiveRecord::Schema.define(version: 2020_10_06_114304) do
     t.integer "tag_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["advert_id", "tag_id"], name: "index_taggings_on_advert_id_and_tag_id", unique: true
+    t.index ["advert_id"], name: "index_taggings_on_advert_id"
+    t.index ["tag_id"], name: "index_taggings_on_tag_id"
   end
 
   create_table "tags", force: :cascade do |t|

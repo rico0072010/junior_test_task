@@ -10,6 +10,9 @@
       </div>
       <div class="card-body px-2">
         <h4 class="card-title text-success"><%= @advert.title %></h4>
+        <% if @advert.tags.any? %>
+          <%= render @advert.tags %>
+        <% end %>
         <p class="card-text"><%= @advert.content %></p>
         <div class="advert-links">
           <% if @advert.user == current_user %>

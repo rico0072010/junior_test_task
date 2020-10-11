@@ -62,5 +62,11 @@ $(document).on('turbolinks:load', function() {
   }
   google.maps.event.addDomListener(window, 'turbolinks:load', function() {
    initializeAutocomplete('autocomplete_address');
-   });
   });
+});
+
+$(document).ready(function() {
+  $(".alert").delay(10000).slideUp(500, function() {
+    $(this).alert('close');
+  });
+});
