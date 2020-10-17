@@ -40,7 +40,7 @@ body {
 }
 
 .card {
-  border: none;
+  border-bottom: none;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   overflow: hidden;
@@ -50,6 +50,8 @@ body {
 
 .card-footer {
   background-color: lightslategrey;
+  padding: 5px 20px;
+  align-items: center;
 }
 
 .profile-image {
@@ -89,4 +91,41 @@ body {
 .image-area img {
   z-index: 2;
   position: relative;
+}
+
+.index-body {
+  justify-content: space-between;
+}
+
+.show-text {
+  font-size: 1.2rem;
+}
+
+.active {
+  text-transform: uppercase;
+  margin-right: 1rem;
+  font-size: larger;
+  font-weight: 700;
+  color: rgba(187, 251, 90, 0.7);
+}
+
+.closed {
+  text-transform: uppercase;
+  margin-right: 1rem;
+  font-size: larger;
+  font-weight: 700;
+  color: rgba(255, 123, 123, 0.89);
+}
+
+.show-body {
+  align-items: center;
+}
+
+.show-card {
+  border: none;
+}
+
+.address {
+  text-transform: uppercase;
+  font-weight: 700;
 }

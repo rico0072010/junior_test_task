@@ -55,6 +55,22 @@ class AdvertsController < ApplicationController
     end
   end
 
+  def change_status
+    @advert = Advert.find(params[:advert_id])
+    if @advert.status?
+      @advert.update_attribute(:status, false)
+      flash[:notice] = 'Advert was successfully closed'
+    else
+      @advert.update_attribute(:status, true)
+      flash[:notice] = 'Advert was successfully activated'
+    end
+    redirect_to @advert
+  end
+
+  def close
+    @advert = Advert.find(params[:advert_id])
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.

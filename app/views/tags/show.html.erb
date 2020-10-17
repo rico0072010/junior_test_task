@@ -1,38 +1,27 @@
-<% if !user_signed_in? %>
-  <%= render 'layouts/jumb' %>
-<% end %>
 <% @adverts.each do |advert| %>
   <div class="mt-4 row justify-content-md-center">
-    <div class="col-10 index-box">
-      <div class="card shadow d-flex flex-row">
+    <div class="col-10">
+      <div class="card shadow flex-row">
         <div class="card-header card-header-index border-0">
           <% if advert.picture? %>
             <%= image_tag advert.picture.thumb.url  %>
           <% else %>
-            <%= image_tag 'square-image.png', size: 200 %>
+            <img src="//placehold.it/200" alt="">
           <% end %>
         </div>
-        <div class="card-body d-flex flex-column index-body px-2">
+        <div class="card-body px-2">
           <h4 class="card-title"><%= link_to advert.title, advert_path(advert), class: 'text-success' %></h4>
           <p class="card-text"><%= truncate(advert.content, length: 160, separator: /\s/) %></p>
           <div class="advert-links">
-            <%= link_to 'VIEW', advert_path(advert), class: "btn btn-outline-primary" %>
+            <%= link_to 'VIEW', advert_path(advert), class: "btn btn-outline-success" %>
             <% if advert.user == current_user %>
               <%= link_to 'EDIT', edit_advert_path(advert), class: 'btn btn-outline-warning' %>
-            <% end %>
-            <% if current_user && current_user.admin? %>
-              <%= link_to 'DELETE', advert_path(advert), class: 'btn btn-outline-dark', method: :delete,
-                  data: { confirm: 'Are you sure?' } %>
+              <%= link_to 'CLOSE', '#', class: 'btn btn-outline-danger' %>
             <% end %>
           </div>
         </div>
       </div>
-      <div class="card-footer w-100 d-flex flex-row flex-nowrap">
-        <% if advert.status? %>
-          <small class="active">Active</small>
-        <% else %>
-          <small class="closed">Closed</small>
-        <% end %>
+      <div class="card-footer w-100">
         <small class="text-white font-italic">Created <%= time_ago_in_words(advert.created_at) %> ago, by <%= link_to advert.user.username, user_path(advert.user), class: 'text-white' %></small>
       </div>
     </div>
