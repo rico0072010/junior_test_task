@@ -1,0 +1,21 @@
+<h1 class="text-center mt-4 mb-4">Tags</h1>
+<div class="mt-4 row justify-content-center">
+  <%= will_paginate(@tags, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer) %>
+</div>
+<div class="row justify-content-center">
+  <div class="col-4">
+    <% @tags.each do |tag| %>
+      <div class="card mt-4 rounded text-center shadow">
+        <div class="card-header text-muted">
+          <%= pluralize(tag.adverts.count, 'advert') %> published with this tag
+        </div>
+        <div class="card-body">
+          <h5 class="card-title"><%= link_to tag.name, tag_path(tag), class: 'text-success' %></h5>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+<div class="row justify-content-center mt-4">
+  <%= will_paginate(@tags, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer) %>
+</div>

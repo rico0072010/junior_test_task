@@ -1,17 +1,22 @@
-<div class="card shadow" style="width: 15rem;">
-  <%= image_tag @user.avatar.thumb.default_url, class: 'profile-image' %>
-  <div class="card-body">
-    <h5 class="card-title mb-1"><%= @user.username %></h5>
-  </div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item"><%= @user.email %></li>
-    <li class="list-group-item">Joined <%= time_ago_in_words(@user.created_at) %></li>
-  </ul>
-  <% if current_user == @user %>
+<h1 class="text-center mt-4 mb-4">User page</h1>
+<div class="row justify-content-center">
+  <div class="card text-center shadow" style="width: 15rem;">
+    <%= image_tag @user.avatar.thumb.default_url, class: 'profile-image' %>
     <div class="card-body">
-      <%= link_to 'Edit', edit_user_registration_path, class: 'card-link btn btn-outline-warning' %>
-      <%= link_to 'Delete', user_registration_path, class: 'card-link btn btn-outline-danger',
-          method: :delete, data: { confirm: "You sure?" } %>
+      <h5 class="card-title mb-1"><%= @user.username %> <%= '(Admin)' if @user.admin? %></h5>
     </div>
-  <% end %>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item"><%= @user.email %></li>
+      <li class="list-group-item">Joined <%= time_ago_in_words(@user.created_at) %> ago</li>
+    </ul>
+    <% if current_user == @user %>
+      <div class="card-body">
+        <%= link_to 'Edit', edit_user_registration_path, class: 'card-link btn btn-outline-warning' %>
+        <% if current_user.admin? %>
+          <%= link_to 'Delete', user_registration_path, class: 'card-link btn btn-outline-danger',
+            method: :delete, data: { confirm: "You sure?" } %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 </div>

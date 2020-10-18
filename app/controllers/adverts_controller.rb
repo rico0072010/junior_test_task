@@ -1,9 +1,10 @@
 class AdvertsController < ApplicationController
   before_action :set_advert, only: %i[show edit update destroy]
   skip_before_action :authenticate_user!, only: %i[index show]
+  before_action :admin_user, only: :destroy
 
   def index
-    @adverts = Advert.all
+    @adverts = Advert.paginate(page: params[:page], per_page: 25)
   end
 
   def show; end
@@ -67,15 +68,16 @@ class AdvertsController < ApplicationController
     redirect_to @advert
   end
 
-  def close
-    @advert = Advert.find(params[:advert_id])
-  end
-
   private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_advert
     @advert = Advert.find(params[:id])
+  end
+
+  # Set an admin user
+  def admin_user
+    redirect_to(root_url) unless current_user.admin?
   end
 
   # Only allow a list of trusted parameters through.

@@ -24,10 +24,10 @@
             <% else %>
               <%= link_to 'ACTIVATE', advert_change_status_path(@advert.id), class: 'btn btn-outline-success', method: :patch %>
             <% end %>
-            <% if current_user && current_user.admin? %>
-              <%= link_to 'DELETE', advert_path(@advert), class: 'btn btn-outline-dark', method: :delete,
-                  data: { confirm: 'Are you sure?' } %>
-            <% end %>
+          <% end %>
+          <% if current_user && current_user.admin? %>
+            <%= link_to 'DELETE', advert_path(@advert), class: 'btn btn-outline-dark', method: :delete,
+                data: { confirm: 'Are you sure?' } %>
           <% end %>
         </div>
       </div>
