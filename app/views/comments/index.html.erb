@@ -1,0 +1,20 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <h1 class='text-center mt-4' id='comments-counter'>This advert has <%= pluralize(@advert.comments.count, 'comment') %></h1>
+    <div class="row mt-4 justify-content-center">
+      <%= link_to 'Go back to advert', advert_path(@advert), class: 'btn btn-sm btn-outline-info' %>
+    </div>
+    <div class="mt-4 row justify-content-center">
+      <%= will_paginate(@comments, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer) %>
+    </div>
+    <div class='mt-4' id='comments-list'>
+      <%= render @comments %>
+    </div>
+    <div class="mt-4 row justify-content-center">
+      <%= will_paginate(@comments, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer) %>
+    </div>
+    <div class="row mt-2 justify-content-center">
+      <%= link_to 'Go back to advert', advert_path(@advert), class: 'btn btn-sm btn-outline-info' %>
+    </div>
+  </div>
+</div>

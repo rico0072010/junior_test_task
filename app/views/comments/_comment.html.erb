@@ -1,0 +1,18 @@
+<div class="comment" id="<%= comment.id %>">
+  <div class="card comment-card d-flex flex-row shadow">
+    <% if comment.user.avatar? %>
+      <%= link_to(image_tag(comment.user.avatar.thumb.url), comment.user)  %>
+    <% else %>
+      <%= link_to(image_tag(comment.user.avatar.thumb.default_url, size: 75), comment.user)  %>
+    <% end %>
+    <p class="card-text comment-text"><%= comment.content %></p>
+  </div>
+  <div class="card-footer comment-footer d-flex flex-row flex-nowrap mb-5 w-100" style='border:none;'>
+    <small class="text-white font-italic">Created <%= time_ago_in_words(comment.created_at) %> ago, by <%= link_to comment.user.username, user_path(comment.user), class: 'text-white' %></small>
+    <% if current_user == comment.user || current_user.admin? || current_user == comment.advert  %>
+      <small><%= link_to 'Delete comment', advert_comment_path(comment.advert.id, comment), class: 'btn btn-sm comment-btn btn-dark', data: { confirm: 'Are you sure?' }, method: :delete, remote: true %></small>
+    <% else %>
+      <small><button class='btn btn-sm comment-btn btn-dark' style='visibility:hidden;'>hello</button></small>
+    <% end %>
+  </div>
+</div>

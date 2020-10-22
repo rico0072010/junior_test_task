@@ -31,7 +31,7 @@ function readURL(input) {
 }
 
 $(function () {
-  $('#upload').on('change', function () {
+  $('#upload').on('change', 'turbolinks:load', function () {
     readURL(input);
   });
 });
@@ -65,8 +65,27 @@ $(document).on('turbolinks:load', function() {
   });
 });
 
-$(document).ready(function() {
-  $(".alert").delay(5000).slideUp(500, function() {
+$(document).on('turbolinks:load', function() {
+  $(".alert").delay(8000).slideUp(500, function() {
     $(this).alert('close');
+  });
+});
+
+var maxAdvertLength = 3000;
+var maxCommentLength = 140;
+$(document).on('turbolinks:load', function(){
+  $('#advert_content').on('keydown keyup change', function(){
+      var char = $(this).val();
+      var charLength = $(this).val().length;
+      if(charLength > maxAdvertLength){
+          $(this).val(char.substring(0, maxAdvertLength));
+      }
+  });
+  $('#comment_content').on('keydown keyup change', function(){
+    var char = $(this).val();
+    var charLength = $(this).val().length;
+    if(charLength > maxCommentLength){
+        $(this).val(char.substring(0, maxCommentLength));
+    }
   });
 });

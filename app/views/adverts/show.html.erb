@@ -1,4 +1,4 @@
-<div class="mt-4 row justify-content-md-center">
+<div class="mt-4 row justify-content-center">
   <div class="col-10">
     <div class="card show-card shadow rounded d-flex flex-column flex-nowrap">
       <% if @advert.picture? %>
@@ -42,3 +42,19 @@
     </div>
   </div>
 </div>
+<% if user_signed_in? %>
+  <div id="comment-form">
+    <%= render 'comments/form' %>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-8" id='comment-section'>
+      <h3 class='text-center mt-4' id='comments-counter'>This advert has <%= pluralize(@advert.comments.count, 'comment') %></h3>
+      <div class='mt-4' id='comments-list'>
+        <%= render @comments %>
+      </div>
+      <% if @advert.comments.count > 25 %>
+        <h3 class='text-center' id='see-all'><%= link_to 'See all', advert_comments_path(@advert.id), class: 'btn btn-lg btn-outline-info' %></h3>
+      <% end %>
+    </div>
+  </div>
+<% end %>

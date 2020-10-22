@@ -1,7 +1,11 @@
 <h1 class="text-center mt-4 mb-4">User page</h1>
 <div class="row justify-content-center">
   <div class="card text-center shadow" style="width: 15rem;">
-    <%= image_tag @user.avatar.thumb.default_url, class: 'profile-image' %>
+    <% if @user.avatar != nil %>
+      <%= image_tag @user.avatar.big.url, class: 'profile-image' %>
+    <% else %>
+      <%= image_tag @user.avatar.big.default_url, class: 'profile-image' %>
+    <% end %>
     <div class="card-body">
       <h5 class="card-title mb-1"><%= @user.username %> <%= '(Admin)' if @user.admin? %></h5>
     </div>
@@ -12,8 +16,8 @@
     <% if current_user == @user %>
       <div class="card-body">
         <%= link_to 'Edit', edit_user_registration_path, class: 'card-link btn btn-outline-warning' %>
-        <% if current_user.admin? %>
-          <%= link_to 'Delete', user_registration_path, class: 'card-link btn btn-outline-danger',
+        <% if current_user == @user && current_user.admin? %>
+          <%= link_to 'Cancel', user_registration_path, class: 'card-link btn btn-outline-danger',
             method: :delete, data: { confirm: "You sure?" } %>
         <% end %>
       </div>

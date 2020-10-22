@@ -1,0 +1,6 @@
+$('#comments-list').html('<%= escape_javascript(render partial: @advert.comments.limit(25)) %>');
+$('#comments-counter').html('This advert has <%= escape_javascript(pluralize(@advert.comments.count, 'comment')) %>');
+<% if @advert.comments.count < 26 %>
+  $('#see-all').remove();
+  $('.pagination').remove();
+<% end %>

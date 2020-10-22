@@ -7,7 +7,10 @@ class AdvertsController < ApplicationController
     @adverts = Advert.paginate(page: params[:page], per_page: 25)
   end
 
-  def show; end
+  def show
+    @comments = @advert.comments.limit(25)
+    @new_comment = @advert.comments.new
+  end
 
   def new
     @advert = current_user.adverts.new

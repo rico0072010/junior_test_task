@@ -6,7 +6,7 @@ class Advert < ApplicationRecord
   default_scope -> { order(created_at: :desc) }
   validates :title, presence: true, uniqueness: true, length: { minimum: 3, maximum: 25 }
   validates :content, presence: true, length: { minimum: 10, maximum: 3000 }
-  belongs_to :user, foreign_key: 'user_id'
+  belongs_to :user
   validates :user_id, presence: true
   validate :picture_size
   validates :address, presence: true, length: { minimum: 10, maximum: 150 }
