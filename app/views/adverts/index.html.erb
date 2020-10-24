@@ -1,5 +1,24 @@
 <% if !user_signed_in? %>
   <%= render 'layouts/jumb' %>
+<% else %>
+  <div class="row justify-content-center">
+    <div class="col-10 offset-md-2">
+      <div class="search-area">
+        <%= form_tag search_adverts_path, method: :get do %>
+          <div class="form-group justify-content-center row">
+            <div class="col-9 no-right-padding">
+              <%= text_field :search, params[:search], placeholder: 'Search adverts', autofocus: true, class: 'form-control search-control' %>
+            </div>
+            <div class="col-3 no-left-padding">
+              <%= button_tag type: :submit, class: 'btn btn-success btn-search' do %>
+                <%= fa_icon 'search' %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
 <% end %>
 <h1 class="text-center mt-4 mb-4">Listing all adverts</h1>
 <div class="mt-4 row justify-content-center mb-4">

@@ -171,3 +171,23 @@ body {
   border-bottom-right-radius: calc(0.25rem - 1px);
   box-shadow: none !important;
 }
+
+.search-area {}
+
+.no-right-padding {
+  padding-right: 0 !important;
+}
+
+.no-left-padding {
+  padding-left: 0 !important;
+}
+
+.btn-search {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.search-control {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}

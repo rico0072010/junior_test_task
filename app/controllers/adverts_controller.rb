@@ -1,4 +1,5 @@
 class AdvertsController < ApplicationController
+  require 'will_paginate/array'
   before_action :set_advert, only: %i[show edit update destroy]
   skip_before_action :authenticate_user!, only: %i[index show]
   before_action :admin_user, only: :destroy
@@ -71,6 +72,23 @@ class AdvertsController < ApplicationController
     redirect_to @advert
   end
 
+  def search
+    if params[:search].first.present?
+      @result = find(params[:search].first)
+      params.extract!(:search)
+      @result = @result.paginate(page: params[:page], per_page: 25)
+      if !@result.empty?
+        render 'result'
+      else
+        flash[:alert] = "Couldn't find anything with provided keywords"
+        redirect_to root_path
+      end
+    else
+      flash[:alert] = 'Enter any information about an advert you are looking for'
+      redirect_to root_path
+    end
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -87,5 +105,45 @@ class AdvertsController < ApplicationController
   def advert_params
     params.require(:advert).permit(:title, :content, :picture, :status, :address,
                                    :locality, :administrative_area_level_1, tag_ids: [])
+  end
+
+  def find(param)
+    param.strip!
+    to_send_back = (advert_address_matches(param) + advert_content_matches(param) + advert_title_matches(param) + advert_user_matches(param) + advert_tag_matches(param)).uniq
+    return nil unless to_send_back
+
+    to_send_back
+  end
+
+  def advert_address_matches(param)
+    matches('address', param)
+  end
+
+  def advert_content_matches(param)
+    matches('content', param)
+  end
+
+  def advert_title_matches(param)
+    matches('title', param)
+  end
+
+  def advert_user_matches(param)
+    user_matches('username', param)
+  end
+
+  def user_matches(field_name, param)
+    Advert.joins(:user).where("#{field_name} like ?", "%#{param}%")
+  end
+
+  def advert_tag_matches(param)
+    tag_matches('name', param)
+  end
+
+  def tag_matches(field_name, param)
+    Advert.joins(:tags).where("#{field_name} like ?", "%#{param}%")
+  end
+
+  def matches(field_name, param)
+    Advert.where("#{field_name} like ?", "%#{param}%")
   end
 end

@@ -7,4 +7,5 @@ Rails.application.routes.draw do
   devise_for :users
   resources :users, only: [:show]
   resources :tags, except: [:destroy]
+  get 'search_adverts', to: 'adverts#search'
 end
