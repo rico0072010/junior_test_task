@@ -31,7 +31,7 @@ function readURL(input) {
 }
 
 $(function () {
-  $('#upload').on('change', 'turbolinks:load', function () {
+  $('#upload').on('change', function () {
     readURL(input);
   });
 });

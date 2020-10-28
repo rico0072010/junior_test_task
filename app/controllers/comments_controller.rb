@@ -2,12 +2,12 @@ class CommentsController < ApplicationController
   before_action :correct_user, only: :destroy
 
   def index
-    @advert = Advert.find(params[:advert_id])
+    @advert = Advert.friendly.find(params[:advert_id])
     @comments = @advert.comments.paginate(page: params[:page], per_page: 25)
   end
 
   def create
-    @advert = Advert.find(params[:advert_id])
+    @advert = Advert.friendly.find(params[:advert_id])
     @comment = @advert.comments.build(comment_params)
     @comment.user = current_user
     if @comment.save

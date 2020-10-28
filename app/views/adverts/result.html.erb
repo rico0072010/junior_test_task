@@ -1,3 +1,4 @@
+<% provide(:title, 'Search results') %>
 <h1 class="text-center mt-4 mb-4">Found: <%= pluralize(@result.count, 'advert') %></h1>
 <div class="row mt-4 justify-content-center">
   <%= link_to 'Go back to adverts listing', adverts_path, class: 'btn btn-sm btn-outline-info' %>

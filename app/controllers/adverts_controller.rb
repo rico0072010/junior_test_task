@@ -3,6 +3,7 @@ class AdvertsController < ApplicationController
   before_action :set_advert, only: %i[show edit update destroy]
   skip_before_action :authenticate_user!, only: %i[index show]
   before_action :admin_user, only: :destroy
+  before_action :check_edit_status, only: %i[edit update]
 
   def index
     @adverts = Advert.paginate(page: params[:page], per_page: 25)
@@ -91,9 +92,18 @@ class AdvertsController < ApplicationController
 
   private
 
+  # Check advert status for edit and update acitons, if it's closed, than redirect to advert path.
+
+  def check_edit_status
+    unless @advert.status?
+      flash[:alert] = 'You cannot edit closed advert'
+      redirect_to @advert
+    end
+  end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_advert
-    @advert = Advert.find(params[:id])
+    @advert = Advert.friendly.find(params[:id])
   end
 
   # Set an admin user

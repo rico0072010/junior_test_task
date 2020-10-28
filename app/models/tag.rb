@@ -3,4 +3,5 @@ class Tag < ApplicationRecord
   has_many :adverts, through: :taggings
   validates :name, presence: true, length: { minimum: 2, maximum: 15 }
   validates_uniqueness_of :name
+  default_scope -> { order('name ASC') }
 end

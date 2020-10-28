@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  extend FriendlyId
+  friendly_id :username, use: :slugged
   mount_uploader :avatar, AvatarUploader
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -14,6 +16,6 @@ class User < ApplicationRecord
 
   # Validates the size of an uploaded picture.
   def avatar_size
-    errors.add(:avatar, 'should be less than 500KB') if avatar.size > 0.5.megabytes
+    errors.add(:avatar, 'should be less than 5MB') if avatar.size > 5.megabytes
   end
 end

@@ -3,15 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Junior test task</title>
-    <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag "application", :media => "all" %>
-    <%= javascript_include_tag "application" %>
-    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
-    <!--[if lt IE 9]>
-      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js" type="text/javascript"></script>
-    <![endif]-->
-    <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?libraries=places&key=#{ENV['GOOGLE_API_SERVER_KEY']}" %>
+    <title><%= full_title(yield(:title)) %></title>
+    <%= render 'layouts/meta_rails' %>
+    <%= render 'layouts/shim' %>
   </head>
   <body class="d-flex flex-column">
     <%= render 'layouts/navigation' %>

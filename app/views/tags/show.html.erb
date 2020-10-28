@@ -1,3 +1,4 @@
+<% provide(:title, @tag.name) %>
 <div class="text-center">
   <h1 class="text-center mt-4 mb-4">Tag: <%= @tag.name %></h1>
   <% if current_user && current_user.admin? %>
